@@ -1,4 +1,5 @@
 .cardUser {
+    width: 250px;
     display: flex;
     align-items: center;
     padding: 5px;
