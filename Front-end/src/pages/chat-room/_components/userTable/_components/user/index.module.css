@@ -1,0 +1,57 @@
+.cardUser {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.cardUser:hover {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(161, 161, 161);
+    cursor: pointer;
+}
+
+.containerProfilePhoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+.profilePhoto {
+    border-radius: 50%;
+    height: 40px;
+}
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    padding-left: 5px;
+}
+
+.userName {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.6rem;
+}

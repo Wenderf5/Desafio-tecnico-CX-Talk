@@ -1,0 +1,45 @@
+.overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(73, 72, 72, 0.306);
+}
+
+.userTable {
+    overflow: scroll;
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    right: 0px;
+    padding: 5px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+@media (min-width: 768px) {
+    .overlay {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(73, 72, 72, 0.306);
+    }
+
+    .userTable {
+        overflow: scroll;
+        position: absolute;
+        width: 35%;
+        height: 100%;
+        right: 0px;
+        padding: 5px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
