@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UseGuards } fro
 import { ChangeNameDto } from './dto/change-name/change-name.dto';
 import { ChangeNameService } from './services/change-name/change-name.service';
 import type { Request } from 'express';
-import { AuthGuard } from 'src/common/guards/auth/auth.guard';
+import { AuthGuard } from '../../common/guards/auth/auth.guard';
 import { GetAllUsersService } from './services/get-all-users/get-all-users.service';
 
 @Controller('/user')

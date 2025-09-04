@@ -1,6 +1,6 @@
 import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import type { RedisClientType } from 'redis';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import type { user as userDto } from 'generated/prisma';
 
 export interface userWithStatus {

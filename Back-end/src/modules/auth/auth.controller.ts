@@ -5,7 +5,7 @@ import type { Request, Response } from 'express';
 import { SignInService } from './services/sign-in/sign-in.service';
 import { SignInDto } from './dto/sign-in/sign-in.dto';
 import { SessionValidateService } from './services/session-validate/session-validate.service';
-import { AuthGuard } from 'src/common/guards/auth/auth.guard';
+import { AuthGuard } from '../../common/guards/auth/auth.guard';
 
 @Controller('/auth')
 export class AuthController {
