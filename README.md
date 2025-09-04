@@ -13,11 +13,23 @@ A aplicação funciona de forma simples, ao entrar na aplicação você é redir
 
 1. Clone o repository.
 2. Entre na pasta Back-end e rode o comando `npm install`.
-3. Ainda na pasta Back-end e rode o comando `npm run start`.
-4. Entre na pasta Front-end rode o comando `npm install`.
-5. Ainda na pasta Front-end rode o comando `npm run dev`.
-6. Entre no navegador e pesquise por "http://localhost:5173"
+3. Renomei o arquivo `.env.example` na pasta back-end para `.env`.
+4. Copie essa configurações `DATABASE_URL="postgresql://root:root@localhost:5432/cx-talk-challenge?schema=public"
+JWT_SECRET="4f8b9c2e-7d15-4a91-9f2c-1e6b3d5a8f7c:Zx7vB!p2@qW9eR#tY6uI8oP0sD4fG1hJ"` para o arquivo `.env`.
+6. Ainda na pasta Back-end e rode o comando `npm run start`.
+7. Entre na pasta Front-end rode o comando `npm install`.
+8. Ainda na pasta Front-end rode o comando `npm run dev`.
+9. Entre no navegador e pesquise por "http://localhost:5173"
 
 ## OBS
 
 Para simular uma conversa no chat eu recomendo criar duas contas e entrar em uma pela aba de navegação anônima, assim você pode simular uma conversa entre duas pessoas e ver como chat funciona. 
+
+## Como rodar os testes
+
+1. Clone o repository.
+2. Entre na pasta Back-end e rode o comando `npm install`.
+3. Renomei o arquivo `.env.example` na pasta back-end para `.env`.
+4. Copie essa configurações `DATABASE_URL="postgresql://root_test:root_test@localhost:5433/cx-talk-challenge-test?schema=public"
+JWT_SECRET="4f8b9c2e-7d15-4a91-9f2c-1e6b3d5a8f7c:Zx7vB!p2@qW9eR#tY6uI8oP0sD4fG1hJ"` para o arquivo `.env`.
+6. Ainda na pasta Back-end e rode o comando `npm run test` para rodar os testes unitários ou `npm run test:e2e` para os testes E2E.
