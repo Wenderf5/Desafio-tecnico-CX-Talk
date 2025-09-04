@@ -28,7 +28,7 @@ JWT_SECRET="4f8b9c2e-7d15-4a91-9f2c-1e6b3d5a8f7c:Zx7vB!p2@qW9eR#tY6uI8oP0sD4fG1h
   ```
 6. Entre na pasta Front-end rode o comando abaixo para instalar as dependências do front-end.
 ```bash
-npm run install
+npm install
 ```
 7. Ainda na pasta Front-end rode o comando abaixo para iniciar o front-end.
 ```bash
