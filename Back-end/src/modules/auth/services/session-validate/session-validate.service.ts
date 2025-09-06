@@ -21,6 +21,7 @@ export class SessionValidateService {
                     email: userEmail
                 }
             });
+            
             if (!userDB) {
                 throw new Error();
             }

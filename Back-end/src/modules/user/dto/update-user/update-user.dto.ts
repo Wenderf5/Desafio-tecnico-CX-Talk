@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class ChangeNameDto {
+export class UpdateUserDto {
     @IsNotEmpty()
     @IsString()
     name: string;

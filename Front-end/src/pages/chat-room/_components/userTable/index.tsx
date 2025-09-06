@@ -2,7 +2,7 @@ import style from './index.module.css';
 import { User } from './_components/user';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { socket } from '../../../../webSocket/socket';
+import { chatRoomWebsocket } from '../../../../webSocket/chatRoomWebsocket';
 
 interface props {
     setUserTableIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,53 +16,50 @@ export interface user {
 }
 
 export function UserTable({ setUserTableIsVisible }: props) {
-    const ref = useRef<HTMLDivElement>(null);
+    const userTableElementRef = useRef<HTMLDivElement>(null);
     const [users, setUsers] = useState<user[]>([]);
 
     useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (ref.current && !ref.current.contains(event.target as Node)) {
+        async function fetchUsers() {
+            const response = await fetch("http://localhost:8080/user", {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                return;
+            }
+            setUsers(result.data);
+        }
+        fetchUsers();
+
+        const handleStatusOnline = (payload: { userId: string, status: string }) => {
+            setUsers(prevUsers => prevUsers.map(user =>
+                user.id === payload.userId ? { ...user, status: payload.status } : user
+            ));
+        }
+        chatRoomWebsocket.on('status-online', handleStatusOnline);
+
+        const handleStatusOffline = (payload: { userId: string, status: string }) => {
+            setUsers(prevUsers => prevUsers.map(user =>
+                user.id === payload.userId ? { ...user, status: payload.status } : user
+            ));
+        }
+        chatRoomWebsocket.on('status-offline', handleStatusOffline);
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (userTableElementRef.current && !userTableElementRef.current.contains(e.target as Node)) {
                 setUserTableIsVisible(false);
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [setUserTableIsVisible]);
-
-    useEffect(() => {
-        async function fetchUsers() {
-            const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/user`, {
-                method: 'GET',
-                credentials: 'include'
-            });
-            const result = await response.json();
-            setUsers(result.data);
-
-            socket.on('status-online', handleStatusOnline);
-            socket.on('status-offline', handleStatusOffline);
+            chatRoomWebsocket.off('status-online', handleStatusOnline);
+            chatRoomWebsocket.off('status-offline', handleStatusOffline);
+            document.removeEventListener('click', handleClickOutside);
         }
-
-        const handleStatusOnline = (payload: { id: string; status: string }) => {
-            setUsers(prevUsers => prevUsers.map(user =>
-                user.id === payload.id ? { ...user, status: payload.status } : user
-            ));
-        };
-
-        const handleStatusOffline = (payload: { id: string; status: string }) => {
-            setUsers(prevUsers => prevUsers.map(user =>
-                user.id === payload.id ? { ...user, status: payload.status } : user
-            ));
-        };
-
-        fetchUsers();
-
-        return () => {
-            socket.off('status-online', handleStatusOnline);
-            socket.off('status-offline', handleStatusOffline);
-        };
     }, []);
 
     return (
@@ -76,7 +73,7 @@ export function UserTable({ setUserTableIsVisible }: props) {
                 style={{ height: "100%" }}
             >
                 <div
-                    ref={ref}
+                    ref={userTableElementRef}
                     className={style.userTable}
                 >
                     {users?.map((user) => (

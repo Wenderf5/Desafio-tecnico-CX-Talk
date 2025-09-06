@@ -15,8 +15,8 @@ export class SignUpService {
     ) { }
 
     async signUp(newUser: SignUpDto) {
-        const existing = await this.prismaService.user.findUnique({ where: { email: newUser.email } });
-        if (existing) {
+        const userDB = await this.prismaService.user.findUnique({ where: { email: newUser.email } });
+        if (userDB) {
             throw new ConflictException(`The email '${newUser.email}' is already in use`);
         }
 
@@ -33,7 +33,7 @@ export class SignUpService {
                 }
             });
 
-            const payload = { email: newUser.email }
+            const payload = { email: newUser.email };
             const tokenJwt = this.jwtService.sign(payload, { secret: this.configService.get<string>('JWT_SECRET'), expiresIn: '7d' });
 
             return tokenJwt;

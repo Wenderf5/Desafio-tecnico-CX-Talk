@@ -1,6 +1,6 @@
 export async function verifySession(): Promise<boolean> {
     try {
-        const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/auth/validate-session`, {
+        const response = await fetch("http://localhost:8080/auth/validate-session", {
             method: 'GET',
             credentials: 'include',
         });

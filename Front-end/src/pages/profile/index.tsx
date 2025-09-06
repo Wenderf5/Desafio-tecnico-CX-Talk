@@ -15,8 +15,8 @@ export function Profile() {
     const navigate = useNavigate();
 
     async function changeName() {
-        const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/user/change-name`, {
-            method: 'POST',
+        const response = await fetch("http://localhost:8080/user", {
+            method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -41,7 +41,7 @@ export function Profile() {
     }
 
     async function logout() {
-        const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/auth/logout`, {
+        const response = await fetch("http://localhost:8080/auth/logout", {
             method: 'GET',
             credentials: 'include'
         });

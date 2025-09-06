@@ -46,9 +46,15 @@ export class ChatRoomGateway {
         content: payload.content,
         authorId: payload.authorId
       },
-      include: {
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
         author: {
-          select: { name: true }
+          select: {
+            id: true,
+            name: true
+          }
         }
       }
     });

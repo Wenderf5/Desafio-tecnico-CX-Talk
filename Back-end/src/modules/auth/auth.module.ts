@@ -7,7 +7,11 @@ import { SessionValidateService } from './services/session-validate/session-vali
 
 @Module({
   imports: [JwtModule],
-  providers: [SignUpService, SignInService, SessionValidateService],
+  providers: [
+    SignUpService,
+    SignInService,
+    SessionValidateService
+  ],
   controllers: [AuthController]
 })
 export class AuthModule { }

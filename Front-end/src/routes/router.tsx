@@ -3,7 +3,6 @@ import { App } from "../App";
 import { SignUp } from "../pages/sign-up";
 import { SignIn } from "../pages/sign-in";
 import { Profile } from "../pages/profile";
-import { UserContextProvider } from "../context/userContext";
 import { Auth } from "../auth";
 import { verifySession } from "../auth/verifySession";
 import { ChatRoom } from "../pages/chat-room";
@@ -46,21 +45,17 @@ export const router = createBrowserRouter([
             {
                 path: "me",
                 element: (
-                    <UserContextProvider>
-                        <Auth>
-                            <Profile />
-                        </Auth>
-                    </UserContextProvider>
+                    <Auth>
+                        <Profile />
+                    </Auth>
                 )
             },
             {
                 path: "chat",
                 element: (
-                    <UserContextProvider>
-                        <Auth>
-                            <ChatRoom />
-                        </Auth>
-                    </UserContextProvider>
+                    <Auth>
+                        <ChatRoom />
+                    </Auth>
                 )
             }
         ]

@@ -4,14 +4,14 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class ChangeNameService {
+export class UpdateUserService {
     constructor(
         private readonly prismaService: PrismaService,
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService
     ) { }
 
-    async changeName(body: { newName: string, token: string }) {
+    async updateUser(body: { newName: string, token: string }) {
         try {
             const payload = await this.jwtService.verifyAsync(body.token, {
                 secret: this.configService.get<string>('JWT_SECRET'),

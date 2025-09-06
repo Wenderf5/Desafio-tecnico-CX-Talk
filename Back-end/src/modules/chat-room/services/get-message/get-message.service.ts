@@ -9,9 +9,15 @@ export class GetMessageService {
         const messages = await this.prisma.message.findMany({
             take: 15,
             orderBy: { createdAt: 'desc' },
-            include: {
+            select: {
+                id: true,
+                content: true,
+                createdAt: true,
                 author: {
-                    select: { name: true }
+                    select: {
+                        id: true,
+                        name: true,
+                    }
                 }
             }
         });

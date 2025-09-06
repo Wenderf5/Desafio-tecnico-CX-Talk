@@ -6,19 +6,19 @@ import { AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router';
 import { Message, type message } from './_components/message';
 import { useUserContext } from '../../context/userContext';
-import { socket } from '../../webSocket/socket';
+import { chatRoomWebsocket } from '../../webSocket/chatRoomWebsocket';
 
 export function ChatRoom() {
-    const [userTableIsVisible, setUserTableIsVisible] = useState(false);
-    const navigate = useNavigate();
     const { user } = useUserContext();
+    const [userTableIsVisible, setUserTableIsVisible] = useState(false);
     const [messages, setMessages] = useState<message[]>([]);
     const [newMessage, setNewMessage] = useState("");
     const chatRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getLastMessages() {
-            const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/chat-room/message`, {
+            const response = await fetch("http://localhost:8080/chat-room/message", {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -27,36 +27,36 @@ export function ChatRoom() {
         }
         getLastMessages();
 
-        socket.emit('status-online', { userId: user?.id });
+        chatRoomWebsocket.emit('status-online', { userId: user?.id });
 
         const handleSendMessage = (message: message) => {
             setMessages(prev => [...prev, message]);
-        };
-
-        socket.on("send-message", handleSendMessage);
+        }
+        chatRoomWebsocket.on("send-message", handleSendMessage);
 
         const handleBeforeUnload = () => {
-            socket.emit('status-offline', { userId: user?.id });
-        };
-
+            chatRoomWebsocket.emit('status-offline', { userId: user?.id });
+        }
         window.addEventListener('beforeunload', handleBeforeUnload);
 
         return () => {
-            socket.off("send-message", handleSendMessage);
-            socket.emit('status-offline', { userId: user?.id });
+            chatRoomWebsocket.off("send-message", handleSendMessage);
+            chatRoomWebsocket.emit('status-offline', { userId: user?.id });
             window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
+        }
     }, []);
 
     const handleSend = () => {
-        if (!newMessage.trim()) return;
+        if (!newMessage.trim()) {
+            return;
+        }
 
         const payload = {
             authorId: user?.id,
             content: newMessage
-        };
+        }
 
-        socket.emit("send-message", payload);
+        chatRoomWebsocket.emit("send-message", payload);
         setNewMessage("");
     };
 

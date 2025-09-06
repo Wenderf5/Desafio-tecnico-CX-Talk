@@ -13,7 +13,7 @@ type SignInForm = {
 export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [serverError, setServerError] = useState(false);
+    const [genericError, setGenericError] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -24,7 +24,7 @@ export function SignIn() {
     } = useForm<SignInForm>();
 
     const onSubmit = async (data: SignInForm) => {
-        const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/auth/login`, {
+        const response = await fetch("http://localhost:8080/auth/login", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -40,6 +40,7 @@ export function SignIn() {
             case 200:
                 setEmail("");
                 setPassword("");
+                setGenericError(false);
                 navigate('/me');
                 break;
             case 404:
@@ -59,7 +60,10 @@ export function SignIn() {
             default:
                 setEmail("");
                 setPassword("");
-                setServerError(!serverError);
+                setGenericError(true);
+                setTimeout(() => {
+                    setGenericError(false);
+                }, 3000);
                 break;
         }
     }
@@ -116,7 +120,7 @@ export function SignIn() {
                             />
                         </div>
                         <AnimatePresence>
-                            {serverError &&
+                            {genericError &&
                                 <motion.p
                                     key="server-error"
                                     initial={{ opacity: 0, y: -5 }}

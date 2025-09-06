@@ -14,12 +14,13 @@ export function Auth({ children }: AuthProps) {
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/auth/validate-session`, {
+                const response = await fetch("http://localhost:8080/auth/validate-session", {
                     credentials: "include",
                 });
 
                 if (!response.ok) {
                     navigate("/auth/login");
+                    return;
                 }
 
                 const result = await response.json();

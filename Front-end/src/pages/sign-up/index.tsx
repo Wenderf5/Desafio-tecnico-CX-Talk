@@ -16,7 +16,7 @@ export function SignUp() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [serverError, setServerError] = useState(false);
+    const [genericError, setGenericError] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -27,7 +27,7 @@ export function SignUp() {
     } = useForm<SignUpForm>();
 
     const onSubmit = async (data: SignUpForm) => {
-        const response = await fetch(`${import.meta.env.VITE_BACK_END_ENDPOINT}/auth/register`, {
+        const response = await fetch("http://localhost:8080/auth/register", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +46,7 @@ export function SignUp() {
                 setName("");
                 setEmail("");
                 setPassword("");
-                setServerError(false);
+                setGenericError(false);
                 navigate('/me');
                 break;
             case 409:
@@ -60,7 +60,10 @@ export function SignUp() {
                 setName("");
                 setEmail("");
                 setPassword("");
-                setServerError(!serverError);
+                setGenericError(true);
+                setTimeout(() => {
+                    setGenericError(false);
+                }, 3000)
                 break;
         }
     }
@@ -137,7 +140,7 @@ export function SignUp() {
                             />
                         </div>
                         <AnimatePresence>
-                            {serverError &&
+                            {genericError &&
                                 <motion.p
                                     key="server-error"
                                     initial={{ opacity: 0, y: -5 }}

@@ -23,13 +23,13 @@ export class GetAllUsersService {
 
             const userWithStatus: userWithStatus[] = [];
             for (let i = 0; i < usersBD.length; i++) {
-                const status = await this.redis.get(`user:${usersBD[i].id}`) || "offline";
+                const status = await this.redis.get(`user:${usersBD[i].id}`);
 
                 userWithStatus.push({
                     id: usersBD[i].id,
                     photo: usersBD[i].profilePhoto,
                     name: usersBD[i].name,
-                    status: status
+                    status: status || "offline"
                 });
             }
 

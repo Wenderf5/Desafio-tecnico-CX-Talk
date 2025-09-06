@@ -26,7 +26,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
 export function useUserContext() {
     const context = useContext(UserContext);
     if (!context) {
-        throw new Error("Erro no contexto 'productsContext'.")
+        throw new Error("Error in context 'userContext'.");
     }
     return context;
 }

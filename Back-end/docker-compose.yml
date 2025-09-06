@@ -1,22 +1,22 @@
-version: '3.9'
-
 services:
-  db:
+  db_development:
     image: postgres:15
-    container_name: postgres_db
+    container_name: postgres_db_development
     restart: always
+    profiles: [ "development" ]
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: cx-talk-challenge
+      POSTGRES_USER: root_development
+      POSTGRES_PASSWORD: root_development
+      POSTGRES_DB: cx-talk-challenge-development
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_development:/var/lib/postgresql/data
   db_test:
     image: postgres:15
     container_name: postgres_db_test
     restart: always
+    profiles: [ "test" ]
     environment:
       POSTGRES_USER: root_test
       POSTGRES_PASSWORD: root_test
@@ -29,9 +29,10 @@ services:
     image: redis:7
     container_name: redis
     restart: always
+    profiles: [ "development", "test" ]
     ports:
       - "6379:6379"
     command: [ "redis-server", "--requirepass", "root" ]
 volumes:
-  postgres_data:
+  postgres_data_development:
   postgres_data_test:
