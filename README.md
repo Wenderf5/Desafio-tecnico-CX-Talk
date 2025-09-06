@@ -19,7 +19,7 @@ npm install
 3. Renomei o arquivo `.env.example` na pasta back-end para `.env`.
 4. Substitua o conteúdo do arquivo `.env` pelas configurações abaixo.
 ```env
-DATABASE_URL="postgresql://root:root@localhost:5432/cx-talk-challenge?schema=public"
+DATABASE_URL="postgresql://root_development:root_development@localhost:5432/cx-talk-challenge-development?schema=public"
 JWT_SECRET="4f8b9c2e-7d15-4a91-9f2c-1e6b3d5a8f7c:Zx7vB!p2@qW9eR#tY6uI8oP0sD4fG1hJ"
 ```
 5. Ainda na pasta Back-end e rode o comando abaixo para iniciar o back-end da aplicação.
